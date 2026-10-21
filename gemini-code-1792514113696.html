@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Б.Мөнх-Оргил & Д.Нандинчимэг - Хуримын Ёслолд Тавтай Морил</title>
+    <!-- Lobster & Montserrat Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #B8860B;
+            --soft-gold: #D4AF37;
+            --cream-bg: #FFF8F0;
+            --dark-emerald: #1C312E;
+            --sage-green: #2E7D32;
+            --checked-green: #E8F5E9;
+            --text-color: #2C3E50;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #FFF9F2 0%, #FAF0E6 50%, #F5E6D3 100%);
+            color: var(--text-color);
+            padding: 0 15px 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 🌿 АР ФОН ХӨДӨЛГӨӨНТ НАВЧИН АНИМЕЙШН */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .glow-circle {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(255, 248, 240, 0) 70%);
+            border-radius: 50%;
+            animation: floatGlow 15s infinite alternate ease-in-out;
+        }
+
+        .glow-1 { top: -150px; left: -100px; }
+        .glow-2 { bottom: -200px; right: -100px; animation-delay: -7.5s; }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 60px) scale(1.15); }
+        }
+
+        .leaf {
+            position: absolute;
+            width: 18px;
+            height: 28px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 0 100% 0 100%;
+            opacity: 0.6;
+            animation: animateLeaf 12s linear infinite;
+        }
+
+        @keyframes animateLeaf {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* 📌 ДЭЭД ХЭСЭГ (FREEZE / STICKY АВСААРХАН БАЙРЛАЛ) */
+        .sticky-header-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 249, 242, 0.96);
+            backdrop-filter: blur(10px);
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 20px 8px 20px; /* Авсаархан зай */
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            margin-bottom: 15px;
+        }
+
+        .qr-corner {
+            position: absolute;
+            top: 8px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--soft-gold);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .qr-corner img {
+            width: 50px;
+            height: 50px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .qr-corner span {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: var(--dark-emerald);
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .couples-names {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Lobster', cursive;
+            color: var(--gold);
+            font-size: 1.9rem;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        .monogram-symbol {
+            font-size: 2.2rem;
+            font-style: italic;
+            color: #C59B27;
+            padding: 0 2px;
+        }
+
+        .subtitle {
+            font-size: 0.78rem;
+            color: var(--dark-emerald);
+            font-weight: 700;
+            margin-top: 2px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid var(--soft-gold);
+            margin-top: 6px;
+            font-size: 0.75rem;
+        }
+
+        .stat-item span {
+            font-weight: 700;
+            color: var(--dark-emerald);
+            font-family: 'Lobster', cursive;
+            font-size: 0.88rem;
+        }
+
+        .controls-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+            width: 100%;
+            max-width: 480px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex-grow: 1;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            font-size: 0.78rem;
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .btn-save {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.75rem;
+            box-shadow: 0 3px 8px rgba(184, 134, 11, 0.2);
+            white-space: nowrap;
+        }
+
+        .btn-save:hover {
+            background: #996515;
+        }
+
+        /* 📌 ХӨНДЛӨН 1 МӨРӨНД 7 ШИРЭЭ БАГТААХ GRID */
+        .table-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 1850px;
+            z-index: 1;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1600px) {
+            .table-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+        @media (max-width: 1200px) {
+            .table-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .table-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .table-grid { grid-template-columns: 1fr; }
+        }
+
+        .table-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 14px;
+            padding: 12px 8px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-header {
+            border-bottom: 1px dashed var(--soft-gold);
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .table-title {
+            font-family: 'Lobster', cursive;
+            font-size: 1.5rem;
+            color: var(--dark-emerald);
+            letter-spacing: 1px;
+        }
+
+        .guest-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .guest-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 7px;
+            border-radius: 10px;
+            background: rgba(253, 251, 247, 0.95);
+            border: 1px solid rgba(230, 220, 205, 0.8);
+            font-size: 0.78rem;
+            transition: all 0.2s ease;
+        }
+
+        .guest-item.arrived {
+            background-color: var(--checked-green) !important;
+            border: 1px solid #A5D6A7 !important;
+            color: #1B5E20;
+            font-weight: 600;
+        }
+
+        .guest-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            overflow: hidden;
+        }
+
+        .guest-id {
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Lobster', cursive;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .guest-name {
+            font-weight: 500;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .guest-item.arrived .guest-name {
+            color: #1B5E20;
+        }
+
+        .btn-check {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 2px 7px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.68rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-check:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        .guest-item.arrived .btn-check {
+            background: var(--sage-green);
+            border-color: var(--sage-green);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation">
+        <div class="glow-circle glow-1"></div>
+        <div class="glow-circle glow-2"></div>
+        <div id="leafContainer"></div>
+    </div>
+
+    <!-- 📌 ДЭЭД ХЭСЭГ (FREEZE & STICKY - АВСААРХАН ЗАЙТАЙ) -->
+    <div class="sticky-header-container">
+        <div class="qr-corner">
+            <img id="qrImage" src="" alt="Ирц бүртгэх QR">
+            <span>Энэ хуудас руу орох</span>
+        </div>
+
+        <div class="header">
+            <div class="couples-names">
+                <span>Б.Мөнх-Оргил</span>
+                <span class="monogram-symbol">ℰ</span>
+                <span>Д.Нандинчимэг</span>
+            </div>
+            <!-- Үгийг шинэчилсэн ба эможи хассан -->
+            <div class="subtitle">ХУРИМЫН ЁСЛОЛД ТАВТАЙ МОРИЛ</div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">Нийт зочин: <span id="totalGuests">0</span></div>
+            <div class="stat-item">Ирсэн: <span id="arrivedCount">0</span></div>
+            <div class="stat-item">Ирц: <span id="attendancePercent">0%</span></div>
+        </div>
+
+        <div class="controls-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Зочны нэр эсвэл суудлаар хайх..." onkeyup="filterGuests()">
+            </div>
+            <button class="btn-save" onclick="saveData()">💾 Хадгалах</button>
+        </div>
+    </div>
+
+    <!-- 📌 7 БАГАНАТАЙ ШИРЭЭНИЙ GRID -->
+    <div class="table-grid" id="tablesContainer"></div>
+
+    <script>
+        function createLeaves() {
+            const container = document.getElementById('leafContainer');
+            if (!container) return;
+            for (let i = 0; i < 18; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                const size = Math.random() * 10 + 10;
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size * 1.5}px`;
+                leaf.style.left = `${Math.random() * 100}%`;
+                leaf.style.animationDelay = `${Math.random() * 10}s`;
+                leaf.style.animationDuration = `${Math.random() * 8 + 8}s`;
+                container.appendChild(leaf);
+            }
+        }
+
+        // 28 ШИРЭЭ, 295 ЗОЧНЫ GOOGLE SHEET-ИЙН БОДИТ НЭРС
+        const guestNamesMap = {
+            1: ["Гэрэлмаа", "Гантөмөр", "Сейтхан", "Лхамсүрэн", "Энх-Амгалан", "Ариунтуяа", "Эрхэмбаатар", "Оюунжаргал", "Чагцал", "Мянгандаш"],
+            2: ["Заяа", "Дуулга", "Билэгээ", "Сайнцогт", "Ганбаатар", "Баярцэнгэл", "Баясаа 2В", "Ина", "Мөөгий", "Аанк", "Мөнхөө", "Даавка REDA"],
+            3: ["Оюунцэцэг", "Мөнхзаяа", "Буянт", "Уранчимэг", "Ганбаяр", "Баярням", "Батхуяг", "Амаржаргал", "Урангоо", "Лхагваням"],
+            4: ["Одсүрэн", "Буянхишиг", "Анхбаяр", "Насандулам", "Kim Kangryul", "Lim Jinhee", "Мандхай", "Оюун-Эрдэнэ", "Уранбилэг", "Ариунсанаа"],
+            5: ["Аззаяа", "Наранцэцэг", "Шинэцэцэг", "Солонго", "Чаминчулуун", "Тунгалаг", "Хурцбилэг", "Дөлмөнх", "Чинбаяр", "Ариунболд"],
+            6: ["Ариунболд", "Ариунзул", "Дэлгэрцэцэг", "Бат-Эрдэнэ", "Энхбаатар", "Цэвэлмаа", "Болдзориг", "Бэхцэцэг", "Мөнхжаргал ИБ", "Энхнаран"],
+            7: ["Бат-Ирээдүй", "Хулан", "Зулаа", "Сааралаа", "Баагий", "Амараа", "Болороо", "Энхүүш", "Доогий", "Дөлөө"],
+            8: ["Жавхаа", "Ариука", "Батака", "Номио", "Баатка", "Айнко", "Энхсайхан", "Баагий", "Маагий", "Гантулга /гитар/", "Ганаа", "Мөнхтуяа"],
+            9: ["Анар-Эрдэнэ", "Наранцацрал", "Баатархүү", "Даваажав", "Сүрэнхорлоо", "Цогтбаяр", "Төмөрсүх", "Магнай"],
+            10: ["Ариунзаяа", "Буяннэмэх", "Отгончимэг", "Хан-Уул", "Уянга", "Цэндсүрэн", "Тамир", "Учрал", "Базарсүрэн", "Отгонбат"],
+            11: ["Галбадрал", "Пүрэвжаргал", "Бейсен", "Чулуундорж", "Дашдаваа", "Баярмөнх", "Ууганбаяр", "Болороо", "Энхбат", "Нянтайсанжаа", "Ганбаа", "Баатарсүрэн"],
+            12: ["Энхтөр", "Оюунтуяа", "Ангараг", "Амараа", "Саруул", "Батаа", "Энххүслэн", "Цолмон", "Дөлгөөн", "Мөнхбадрах"],
+            13: ["Гантулга", "Батдорж", "Баасандулам", "Мөнх-Оргил", "Батбаатар", "Содном", "Энхбат", "Эрдэнэцэцэг", "Гантулга /Grand/", "Ууганбаяр"],
+            14: ["Загдсүрэн", "Оргил", "Чимэгээ", "Ариунтөгс", "Ганчимэг", "Батзориг", "Баттүвшин", "Шижирбаатар", "Батчимэг", "Түвшинбаяр", "Болормаа", "Үнэнчимэг"],
+            15: ["Нарансолонго", "Хангай", "Сүлдболд", "Хулан", "Аминжаргал", "Сийлэн", "Содзаяа", "Нэгүүн", "Ихбаяр", "Баярцэцэг"],
+            16: ["Энхтайван", "Саранцацралт", "Сарангэрэл", "Эрдэнэсүх", "Ханбуурал", "Бат-Эрдэнэ", "Болд-Эрдэнэ", "Цогтбаяр", "Мэндбаяр", "Ганхөлөг"],
+            17: ["Амарсайхан", "Нандирмаа", "Намжирмаа", "Тэнгэр", "Түмэнжаргал", "Нямжаргал", "Баяраа", "Ичинхорлоо", "Нандин-Эрдэнэ", "Нандин-Од"],
+            18: ["Даваасүрэн", "Батболд", "Ганбаяр", "Батбаяр", "Эрдэнэ", "Ванданхүү", "Баянжаргал", "Эрдэнэмөнх", "Ариунтуяа", "Энх-Эрдэнэ"],
+            19: ["Отгонсүрэн", "Амартүвшин", "Ариунзаяа", "Пүрэвсүрэн", "Гантуул", "Жаргал", "Баатар", "Саранцэцэг", "Нямсүрэн", "Төгсжаргал"],
+            20: ["Энхдэлгэр", "Оюун-Эрдэнэ", "Болор", "Эрдэнэбаяр", "Өнөболд", "Баясгалан", "Гүнбилэг", "Шижирмаа", "Маргад", "Бямбадорж"],
+            21: ["Цэгмид", "Отгонжаргал", "Ганцэцэг", "Амаржаргал", "Цэрэндолгор", "Цэрэнпил", "Сарантуяа", "Баярсайхан", "Оюунчимэг", "Батсайхан"],
+            22: ["Чинбат", "Ариунболд", "Цолмон", "Батжаргал", "Нямдорж", "Энхжаргал", "Болдбаатар", "Нямсүрэн", "Баасанжав", "Мөнхбат"],
+            23: ["Энхтөр", "Цэцэгмаа", "Бат-Эрдэнэ", "Оюунтуяа", "Ганбат", "Мөнхжаргал", "Баярмаа", "Ганзориг", "Лхагвасүрэн", "Жаргалсайхан"],
+            24: ["Сангажав", "Даваасүрэн", "Пад", "Дариймаа", "Билгүүн", "Гэрэлт-Од", "Ундрал", "Оюунбат", "Ижилбаяр", "Биндэрьяа", "Наранхүү"],
+            25: ["Доржпалам", "Ганболд", "Даваажав", "Мөнх-Эрдэнэ", "Баттөр", "Отгонбаатар", "Сүхбаатар", "Болд", "Энхбаатар", "Энхзориг"],
+            26: ["Баатаржав", "Давааням", "Ганхуяг", "Лхагвадорж", "Мөнхбаатар", "Цогбадрах", "Батбаатар", "Мөнхтуул", "Жаахнаа"],
+            27: ["Сангажав", "Даваасүрэн", "Пад", "Дариймаа", "Билгүүн", "Гэрэлт-Од", "Ундрал", "Оюунбат", "Ижилбаяр", "Биндэрьяа", "Наранхүү"],
+            28: ["Болор", "Болор-Эрдэнэ", "Алтанхүү", "Гантөгс", "Төмөрхүү", "Гэрэлээ", "Туул", "Гэрэлтуяа", "Ганцэцэг", "Наранцэцэг", "Гэрэлээ", "Цэцэгээ"]
+        };
+
+        function buildInitialGuests() {
+            let list = [];
+            for (let t = 1; t <= 28; t++) {
+                let names = guestNamesMap[t] || [];
+                for (let s = 1; s <= names.length; s++) {
+                    let gName = names[s - 1];
+                    list.push({
+                        table: t.toString(),
+                        seat: `${t}.${s}`,
+                        name: gName,
+                        status: 'Хүлээгдэж буй'
+                    });
+                }
+            }
+            return list;
+        }
+
+        let guestData = [];
+
+        function initData() {
+            document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(window.location.href)}`;
+
+            let saved = localStorage.getItem('wedding_guests_v11');
+            if (saved) {
+                try {
+                    guestData = JSON.parse(saved);
+                } catch(e) {
+                    guestData = buildInitialGuests();
+                }
+            } else {
+                guestData = buildInitialGuests();
+            }
+            renderTables(guestData);
+            createLeaves();
+        }
+
+        function renderTables(data) {
+            const container = document.getElementById('tablesContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            let arrivedCount = 0;
+            const tables = {};
+
+            data.forEach(guest => {
+                if (!tables[guest.table]) tables[guest.table] = [];
+                tables[guest.table].push(guest);
+            });
+
+            for (const tableNum in tables) {
+                const card = document.createElement('div');
+                card.className = 'table-card';
+
+                let guestsHTML = '';
+                tables[tableNum].forEach(guest => {
+                    const isArrived = guest.status === 'Ирсэн';
+                    if (isArrived) arrivedCount++;
+
+                    guestsHTML += `
+                        <li class="guest-item ${isArrived ? 'arrived' : ''}" id="guest-${guest.seat.replace('.', '_')}">
+                            <div class="guest-info">
+                                <span class="guest-id">${guest.seat}</span>
+                                <span class="guest-name">${guest.name}</span>
+                            </div>
+                            <button class="btn-check" onclick="toggleAttendance('${guest.seat}')">
+                                ${isArrived ? 'Ирсэн ✓' : 'Бүртгэх'}
+                            </button>
+                        </li>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="table-header">
+                        <div class="table-title">№ ${tableNum}</div>
+                    </div>
+                    <ul class="guest-list">${guestsHTML}</ul>
+                `;
+                container.appendChild(card);
+            }
+
+            document.getElementById('totalGuests').textContent = data.length;
+            document.getElementById('arrivedCount').textContent = arrivedCount;
+            document.getElementById('attendancePercent').textContent = `${((arrivedCount / (data.length || 1)) * 100).toFixed(1)}%`;
+        }
+
+        function toggleAttendance(seatId) {
+            const guest = guestData.find(g => g.seat === seatId);
+            if (guest) {
+                guest.status = guest.status === 'Ирсэн' ? 'Хүлээгдэж буй' : 'Ирсэн';
+                localStorage.setItem('wedding_guests_v11', JSON.stringify(guestData));
+                renderTables(guestData);
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('wedding_guests_v11', JSON.stringify(guestData));
+            const btn = document.querySelector('.btn-save');
+            btn.textContent = '💾 Хадгалагдлаа!';
+            setTimeout(() => { btn.textContent = '💾 Хадгалах'; }, 2000);
+        }
+
+        function filterGuests() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.guest-item');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', initData);
+    </script>
+</body>
+</html>
